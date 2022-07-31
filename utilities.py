@@ -1,6 +1,3 @@
-# About: Utilities
-# Author: walid.daboubi@gmail.com
-# Version: 1.3 - 2021/10/30
 
 import configparser
 import sys
@@ -11,6 +8,14 @@ import pickle
 import time
 import re
 import sys
+import csv
+from sklearn.metrics import accuracy_score
+from urllib.parse import *
+import seaborn as sns
+import matplotlib.pyplot as plt
+import pandas as pd
+from sklearn.linear_model import LinearRegression
+from sklearn.model_selection import train_test_split
 
 config = configparser.ConfigParser()
 config.sections()
@@ -21,28 +26,6 @@ FEATURES = config['FEATURES']['features'].split(',')
 REGEX = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (.+) "(.*?)" "(.*?)"'
 SPECIAL_CHARS = "[$&+,:;=?@#|'<>.^*()%!-]"
 
-def get_data_details(csv_data):
-        data = np.genfromtxt(csv_data, delimiter = ",")
-        features = data[:,list(range(0,len(FEATURES)))]
-        labels = data[:,[len(FEATURES)]]
-        return features, labels
-
-def get_accuracy(real_labels, predicted_labels, fltr):
-        real_label_count = 0.0
-        predicted_label_count = 0.0
-        for real_label in real_labels:
-                if real_label == fltr:
-                        real_label_count += 1
-        for predicted_label in predicted_labels:
-                if predicted_label == fltr:
-                        predicted_label_count += 1
-        print("Real number of attacks: " + str(real_label_count))
-        print("Predicted number of attacks: " + str(predicted_label_count))
-        precision = predicted_label_count * 100 / real_label_count
-        return precision
-
-
-# Encode a signle log line
 def encode_single_log_line(log_line):
     log_line = log_line.replace(',','_')
     log_line = re.match(REGEX,log_line).groups()
@@ -55,6 +38,7 @@ def encode_single_log_line(log_line):
     upper_cases = sum(1 for c in url if c.isupper())
     lower_cases = sum(1 for c in url if c.islower())
     special_chars = sum(1 for c in url if c in SPECIAL_CHARS)
+
     if '-' in size:
         size = 0
     else:
@@ -69,14 +53,11 @@ def encode_single_log_line(log_line):
         log_line_data['lower_cases'] = int(lower_cases)
         log_line_data['special_chars'] = int(special_chars)
         log_line_data['depth'] = int(depth)
+
     else:
         log_line_data = None
-    return url,log_line_data
+    return url,log_line_data,return_code
 
-def save_model(model,label):
-    model_file_name = 'MODELS/attack_classifier_{}_{}.pkl'.format(label,int(time.time()))
-    pickle.dump(model, open(model_file_name, 'wb'))
-    return model_file_name
 
 def load_model(model_file):
     model = pickle.dump(model_file)

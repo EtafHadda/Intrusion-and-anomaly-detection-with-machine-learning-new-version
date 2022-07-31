@@ -16,21 +16,20 @@ from utilities import *
 parser = argparse.ArgumentParser()
 parser.add_argument('-l', '--log_file', help = 'The raw http log file', required = True)
 parser.add_argument('-d', '--dest_file', help = 'Destination to store the resulting csv file', required = True)
-parser.add_argument('-a', '--artificial_label', help = 'Generate an artificial label for each log line', action='store_true')
 
 args = vars(parser.parse_args())
 
 log_file = args['log_file']
-dest_file = args['dest_file']
-artificial_label = args['artificial_label']
+dest_file =args['dest_file']
 
 
 # Encode all the data in http log file (access_log)
 def encode_log_file(log_file):
 	data = {}
-	log_file = open(log_file, 'r')
+	log_file = open(log_file,'r')
 	for log_line in log_file:
-		url,log_line_data=encode_single_log_line(log_line)
+		log_line=unquote_plus(log_line)
+		url,log_line_data,return_code=encode_single_log_line(log_line)
 		if log_line_data != None:
 			data[url] = log_line_data
 	return data
@@ -43,18 +42,21 @@ def encode_single_line(single_line,features):
 	return encoded
 
 
-# Label data by adding a new raw with two possible values: 1 for attack or suspecious activity and 0 for normal behaviour
-def save_encoded_data(data,encoded_data_file,artificial_label):
+
+def save_encoded_data(data,encoded_data_file):
 	for w in data:
-		if artificial_label == True:
-			attack = '0'
-			patterns = ['honeypot', '%3b', 'xss', 'sql', 'union', '%3c', '%3e', 'eval']
-			if any(pattern in w.lower() for pattern in patterns):
-				attack = '1'
-			data_row = encode_single_line(data[w],FEATURES) + attack + ',' + w + '\n'
-		else:
-			data_row = encode_single_line(data[w],FEATURES) + w + '\n'
+		attack='0'
+		with open('regex_4_labels.csv') as csv_file:
+			csv_reader = csv.reader(csv_file, delimiter=',')
+			for row in csv_reader:
+				if re.search(row[2], w.lower()):
+					attack = row[0]
+		data_row = encode_single_line(data[w],FEATURES) + attack + ',' + w + '\n'
 		encoded_data_file.write(data_row)
 	print (str(len(data)) + ' rows have successfully saved to ' + dest_file)
 
-save_encoded_data(encode_log_file(log_file),open(dest_file, 'w'),artificial_label)
+save_encoded_data(encode_log_file(log_file),open(dest_file, 'w'))
+
+
+
+

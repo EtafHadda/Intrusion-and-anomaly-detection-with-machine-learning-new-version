@@ -21,13 +21,13 @@ features:length,param_number,return_code,size,upper_cases,lower_cases,special_ch
 
 ### Encode your http logs and save the result into a csv file
 ```shell
-$ python encode.py -a -l ./DATA/raw-http-logs-samples/aug_sep_oct_2021.log -d ./DATA/labeled-data-samples/aug_sep_oct_2021.csv
+$ python encode.py -a -l ./DATA/raw_data/aug_sep_oct_2021.log -d ./DATA/labeled_data/aug_sep_oct_2021.csv
 ```
 
 ### Train a model and test the prediction
 Use the http log data from May to July 2021 to train a model, and test it with the data from August to October 2021.
 ```shell
-$ python train.py -a 'dt' -t ./DATA/labeled-data-samples/may_jun_jul_2021.csv -v ./DATA/labeled-data-samples/aug_sep_oct_2021.csv
+$ python train.py -a 'dt' -t ./DATA/labeled_data/may_jun_jul_2021.csv -v ./DATA/labeled_data/aug_sep_oct_2021.csv
 ```
 
 ### Make a prediction for a single log line
@@ -43,9 +43,11 @@ $ python3 -m uvicorn api:app --reload --host 0.0.0.0 --port 8000
 ```
 #### Make a predciton request
 You can use the following code which based on Python 'requests' (the same in test_api.py) to make a prediction using the REST API
+
 ```python
 import requests
-import json
+import jsonn
+
 headers = {
     'accept': 'application/json',
     'Content-Type': 'application/json',
@@ -54,7 +56,7 @@ data = {
     'http_log_line': '187.167.57.27 - - [15/Dec/2018:03:48:45 -0800] "GET /honeypot/Honeypot%20-%20Howto.pdf HTTP/1.1" 200 1279418 "http://www.secrepo.com/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/61.0.3163.128 Safari/534.24 XiaoMi/MiuiBrowser/9.6.0-Beta"'
 }
 response = requests.post('http://127.0.0.1:8000/predict', headers=headers, data=json.dumps(data))
-print (response.text)
+print(response.text)
 ```
 It will return the following:
 ``` python
