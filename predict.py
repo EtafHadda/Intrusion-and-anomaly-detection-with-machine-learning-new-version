@@ -19,8 +19,9 @@ with open("prediction_output.json", "r") as read_file:
     data_from_json = json.load(read_file)
 
 log_file = open(log_file_name,'r')
-
+index=0
 for log_line in log_file:
+    index+=1
     desc='there is no attack to be described'
     log_line=unquote_plus(log_line)
     url,encoded,return_code = encode_single_log_line(log_line)
@@ -38,7 +39,7 @@ for log_line in log_file:
             attack = row[0]
             desc = row[1]
 
-    data_from_json.append({"attack_prediction": prediction, "URL": url,"description":desc,"return_code":return_code})
+    data_from_json.append({"index": index,"attack_prediction": prediction, "URL": url,"description":desc,"return_code":return_code})
 
 with open("prediction_output.json", "w") as write_file:
     json.dump(data_from_json, write_file, indent=2)

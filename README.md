@@ -1,17 +1,16 @@
 
-# 🦅 Webhawk
-Machine Learning based web attacks detection.
+# _**Webhawk - The New Version**_
+#### Paper title: Offline Log Analysis For Apache Web Servers Using Machine Learning
 
-<p align="center">  
-  <img width="600" src="https://images.unsplash.com/photo-1607240376903-9a1f6d09330d?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2340&q=80">
-</p>
 
 ## About
-Webhawk is a Machine Leatning powered Web attack detection system. It uses your web logs as training data. Webhawk offers a REST API that makes it easy to integrate within your SoC ecosystem. To train a detection model and use it as an extra security level in your organization, follwo the following steps.
-
+**Webhawk - the new  version:**  is a Machine Learning Web attacks detection tool. It uses apache web logs as training data and pre-process them before training the model. Preprocessing includes Feature Engineerung and Data Labeling wich is done automatically using regular expressions. In training phase, the tool choose the training algorithm with the highest accuracy and produce its model. After that, testing is conducted py predicting many apache logs and writing them in a json file which will be the return value of the api when frontend application contact with the tool. Web attacks included right now are:
+- SQL injection. 
+- Cross Site Scripting(XSS)
+- Directory Traversal Attack.
 ## Usage
 ### Create a settings.conf file
-Rename copy to settings.conf and have fill it with the required parameters as the following.
+Rename a copy from settings_template.conf to settings.conf and  fill it with the required parameters as the following:
 ```shell
 [MODEL]
 model:MODELS/the_model_you_will_train.pkl
@@ -19,59 +18,52 @@ model:MODELS/the_model_you_will_train.pkl
 features:length,param_number,return_code,size,upper_cases,lower_cases,special_chars,depth
 ```
 
-### Encode your http logs and save the result into a csv file
+### process your http logs and save the result into a csv file
 ```shell
-$ python encode.py -a -l ./DATA/raw_data/aug_sep_oct_2021.log -d ./DATA/labeled_data/aug_sep_oct_2021.csv
+$ python3 process.py  -l ./DATA/raw_data/dataset.log -d ./DATA/labeled_data/dataset.csv
 ```
 
-### Train a model and test the prediction
-Use the http log data from May to July 2021 to train a model, and test it with the data from August to October 2021.
+### Train a model and predict the testing data to get accuracy
+Use the output of process.py which is dataset.csv as an input for train.py
 ```shell
-$ python train.py -a 'dt' -t ./DATA/labeled_data/may_jun_jul_2021.csv -v ./DATA/labeled_data/aug_sep_oct_2021.csv
+$ python3 train.py  -l ./DATA/labeled_data/dataset.csv 
 ```
 
-### Make a prediction for a single log line
+### Make a prediction for file to test your results
+Use the output model of train.py and specify the file which have logs to be predicted.
 ```shell
-$ python predict.py -l '198.72.227.213 - - [16/Dec/2018:00:39:22 -0800] "GET /self.logs/access.log.2016-07-20.gz HTTP/1.1" 404 340 "-" "python-requests/2.18.4"'
+$ python3 predict.py -l ./DATA/raw_data/predict.log -m ./MODELS/model_RandomForestClassifier.pkl
 ```
 
 ### REST API
 #### Launch the API server
 In order to use the API to need first to launch it's server as the following
 ```shell
-$ python3 -m uvicorn api:app --reload --host 0.0.0.0 --port 8000
+$ python3 -m uvicorn api:app --reload
 ```
-#### Make a predciton request
-You can use the following code which based on Python 'requests' (the same in test_api.py) to make a prediction using the REST API
 
-```python
-import requests
-import jsonn
-
-headers = {
-    'accept': 'application/json',
-    'Content-Type': 'application/json',
-}
-data = {
-    'http_log_line': '187.167.57.27 - - [15/Dec/2018:03:48:45 -0800] "GET /honeypot/Honeypot%20-%20Howto.pdf HTTP/1.1" 200 1279418 "http://www.secrepo.com/" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/61.0.3163.128 Safari/534.24 XiaoMi/MiuiBrowser/9.6.0-Beta"'
-}
-response = requests.post('http://127.0.0.1:8000/predict', headers=headers, data=json.dumps(data))
-print(response.text)
-```
-It will return the following:
+It will return the following: (this output is just for one line)
 ``` python
-{"prediction":"0","proba":"0.9975490196078431","log_line":"187.167.57.27 - - [15/Dec/2018:03:48:45 -0800] \"GET /honeypot/Honeypot%20-%20Howto.pdf HTTP/1.1\" 200 1279418 \"http://www.secrepo.com/\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/534.24 (KHTML, like Gecko) Chrome/61.0.3163.128 Safari/534.24 XiaoMi/MiuiBrowser/9.6.0-Beta\""}
-```
+[
+  {
+    "index": 2,
+    "attack_prediction": 1,
+    "URL": "GET /main9.php?name1=admin' or 1=1/* HTTP/1.1",
+    "description": "sql injection attempts",
+    "return_code": "200"
+  }]
+  ```
 
-### Docker
-#### Launch the API server
-To launch the prediction server using docker
-```shell
-$ docker compose build
-$ docker compose up
-```
 ## Used sample data
-The data you will find in DATA folder comes from https://www.secrepo.com.
+The data that used in this project is places in this url https://drive.google.com/drive/folders/1fq_1zBGumADJ_bBcmfHnAflT_gjGsIgc?usp=sharing , please put dataset.log in DATA/raw_data folder and dataset.csv file in Data/labeled_data folder.
 
 ## Documentation
-Details on how this tools is build could be found at http://enigmater.blogspot.fr/2017/03/intrusion-detection-based-on-supervised.html
+Details on how this tools is build could be found at:
+
+
+## The new version is done by:
+- **[Etaf M. Abu Hadda](etafabuhadda18@gmail.com)**
+- **[Hala M. Abu Sada](habusaada@smail.ucas.edu.ps)**
+- **[Eman S. Sallouha](esallouha@smail.ucas.edu.ps)**
+
+#### Last update in : 1/8/2022
