@@ -62,8 +62,8 @@ Details on how this tools is build could be found at:
 
 
 ## The new version is done by:
-- **[Etaf M. Abu Hadda](etafabuhadda18@gmail.com)**
-- **[Hala M. Abu Sada](habusaada@smail.ucas.edu.ps)**
-- **[Eman S. Sallouha](esallouha@smail.ucas.edu.ps)**
+- **Etaf M. Abu Hadda etafabuhadda18@gmail.com**
+- **Hala M. Abu Sada habusaada@smail.ucas.edu.ps**
+- **Eman S. Sallouha esallouha@smail.ucas.edu.ps**
 
 #### Last update in : 1/8/2022
