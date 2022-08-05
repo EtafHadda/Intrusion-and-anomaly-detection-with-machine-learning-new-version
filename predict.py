@@ -1,6 +1,7 @@
 # About: predict.py
 # Author: walid.daboubi@gmail.com
 # Version: 1.3 - 2021/10/30
+#python3 predict.py -l DATA/raw_data/predict.log -m MODELS/model_RandomForestClassifier.pkl
 import json
 
 from utilities import *
@@ -39,7 +40,7 @@ for log_line in log_file:
             attack = row[0]
             desc = row[1]
 
-    data_from_json.append({"id": index,"attack_prediction": prediction, "URL": url,"description":desc,"return_code":return_code,"log record":log_line})
+    data_from_json.append({"attack_prediction": prediction, "URL": url,"description":desc,"return_code":return_code,"log_record":log_line})
 
 with open("prediction_output.json", "w") as write_file:
     json.dump(data_from_json, write_file, indent=2)

@@ -1,1 +1,219 @@
-[]
+[
+  {
+    "attack_prediction": 0,
+    "URL": "GET /themes/default/graphics/alerts/success.png HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:02  0000] \"GET /themes/default/graphics/alerts/success.png HTTP/1.1\" 200 737 \"http://mail.spiral.com/themes/default/screen.css\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 1,
+    "URL": "GET /main9.php?name1=admin' or 1=1/* HTTP/1.1",
+    "description": "sql injection attempts",
+    "return_code": "200",
+    "log_record": "239.76.215.8 - - [14/Feb/2011:22:59:15  0000] \"GET /main9.php?name1=admin' or 1=1/* HTTP/1.1\" 200 1150 \"http://www.jones.info/mainpage/\" \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /nag/task.php?actionID=add_task HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.130 - - [29/Feb/2020:00:00:03  0000] \"GET /nag/task.php?actionID=add_task HTTP/1.1\" 200 8991 \"http://mail.spiral.com/nag/\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/77.0.3865.90 HeadlessChrome/77.0.3865.90 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 2,
+    "URL": "GET /register.php?name10=<script+src=\">\"+src=\"http://yoursite.com/xss.js?69_69\"></script> HTTP/1.1",
+    "description": "Detects possibly malicious html elements including some attributes",
+    "return_code": "200",
+    "log_record": "35.33.190.205 - - [14/Feb/2011:22:59:15  0000] \"GET /register.php?name10=<script+src=\">\"+src=\"http://yoursite.com/xss.js?69,69\"></script> HTTP/1.1\" 200 7947 \"http://www.jones.info/main/\" \"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1623.0 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /services/prefs.php?app=horde HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:09  0000] \"GET /services/prefs.php?app=horde HTTP/1.1\" 200 3794 \"http://mail.spiral.com/services/prefs.php\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /services/portal/ HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.130 - - [29/Feb/2020:00:04:09  0000] \"GET /services/portal/ HTTP/1.1\" 200 6499 \"http://mail.spiral.com/services/prefs.php\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /turba/ HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.130 - - [29/Feb/2020:00:04:13  0000] \"GET /turba/ HTTP/1.1\" 200 4353 \"http://mail.spiral.com/services/portal/\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 2,
+    "URL": "GET /register.php?name10=<IMG SRC=javascript:alert(&quot;XSS&quot;)> HTTP/1.1",
+    "description": "Detects obfuscated script tags and XML wrapped HTML",
+    "return_code": "200",
+    "log_record": "35.33.190.205 - - [14/Feb/2011:22:59:15  0000] \"GET /register.php?name10=<IMG SRC=javascript:alert(&quot;XSS&quot;)> HTTP/1.1\" 200 7947 \"http://www.jones.info/main/\" \"Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/31.0.1623.0 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /services/prefs.php?app=imp HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:11  0000] \"GET /services/prefs.php?app=imp HTTP/1.1\" 200 4168 \"http://mail.spiral.com/services/prefs.php?app=horde\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 3,
+    "URL": "GET /main4.php?email=<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM \"file:///dev/random\">]><foo>&xee;</foo> HTTP/1.1",
+    "description": "Detects specific directory and path traversal",
+    "return_code": "200",
+    "log_record": "144.169.55.103 - - [14/Feb/2011:22:59:15  0000] \"GET /main4.php?email=<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM \"file:///dev/random\">]><foo>&xee;</foo> HTTP/1.1\" 200 4151 \"http://www.jones.info/test/\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /imp/themes/default/screen.css HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:12  0000] \"GET /imp/themes/default/screen.css HTTP/1.1\" 200 3272 \"http://mail.spiral.com/services/prefs.php?app=imp\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 1,
+    "URL": "GET /main9.php?name1=\") or (\"1\"=\"1\"# HTTP/1.1",
+    "description": "sql injection attempts",
+    "return_code": "200",
+    "log_record": "239.76.215.8 - - [14/Feb/2011:22:59:15  0000] \"GET /main9.php?name1=\") or (\"1\"=\"1\"# HTTP/1.1\" 200 1150 \"http://www.jones.info/mainpage/\" \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /imp/themes/default/basic/screen.css HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:12  0000] \"GET /imp/themes/default/basic/screen.css HTTP/1.1\" 200 1955 \"http://mail.spiral.com/services/prefs.php?app=imp\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 2,
+    "URL": "GET /main11.php?name=<;IMG SRC=\";mocha:[code]\";>; HTTP/1.1",
+    "description": "Detects obfuscated script tags and XML wrapped HTML",
+    "return_code": "200",
+    "log_record": "61.62.116.114 - - [14/Feb/2011:22:59:15  0000] \"GET /main11.php?name=<;IMG SRC=\";mocha:[code]\";>; HTTP/1.1\" 200 1275 \"http://www.jones.info/search/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2062.124 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /themes/default/graphics/navi-left-active.png HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:12  0000] \"GET /themes/default/graphics/navi-left-active.png HTTP/1.1\" 200 446 \"http://mail.spiral.com/themes/default/screen.css\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /themes/default/graphics/navi-center-active.png HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:12  0000] \"GET /themes/default/graphics/navi-center-active.png HTTP/1.1\" 200 370 \"http://mail.spiral.com/themes/default/screen.css\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /themes/default/graphics/navi-right-active.png HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:12  0000] \"GET /themes/default/graphics/navi-right-active.png HTTP/1.1\" 200 429 \"http://mail.spiral.com/themes/default/screen.css\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /imp/themes/default/graphics/favicon.ico HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:12  0000] \"GET /imp/themes/default/graphics/favicon.ico HTTP/1.1\" 200 2026 \"-\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 3,
+    "URL": "GET /main5.php?file14=<iframe width=\"420\" height=\"315\" src=\"/etc/apache2/sites-available/default\" frameborder=\"0\" allowfullscreen></iframe> HTTP/1.1",
+    "description": "Detects specific directory and path traversal",
+    "return_code": "200",
+    "log_record": "61.242.241.47 - - [14/Feb/2011:22:59:15  0000] \"GET /main5.php?file14=<iframe width=\"420\" height=\"315\" src=\"/etc/apache2/sites-available/default\" frameborder=\"0\" allowfullscreen></iframe> HTTP/1.1\" 200 3678 \"http://www.jones.info/main/\" \"Mozilla/5.0 (Windows NT 5.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/34.0.1866.237 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /services/prefs.php?app=horde&group=identities HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.130 - - [29/Feb/2020:00:04:10  0000] \"GET /services/prefs.php?app=horde&group=identities HTTP/1.1\" 200 4577 \"http://mail.spiral.com/services/prefs.php?app=horde\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Ubuntu Chromium/77.0.3865.90 HeadlessChrome/77.0.3865.90 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 1,
+    "URL": "GET /main9.php?name1=admin' or 1=1/* HTTP/1.1",
+    "description": "sql injection attempts",
+    "return_code": "200",
+    "log_record": "239.76.215.8 - - [14/Feb/2011:22:59:15  0000] \"GET /main9.php?name1=admin' or 1=1/* HTTP/1.1\" 200 1150 \"http://www.jones.info/mainpage/\" \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 1,
+    "URL": "GET /main9.php?name1=\") or \"1\"=\"1 HTTP/1.1",
+    "description": "sql injection attempts",
+    "return_code": "200",
+    "log_record": "239.76.215.8 - - [14/Feb/2011:22:59:15  0000] \"GET /main9.php?name1=\") or \"1\"=\"1 HTTP/1.1\" 200 1150 \"http://www.jones.info/mainpage/\" \"Mozilla/5.0 (Windows NT 6.3; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/41.0.2225.0 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 3,
+    "URL": "GET /main4.php?email=<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM \"file:///dev/random\">]><foo>&xee;</foo> HTTP/1.1",
+    "description": "Detects specific directory and path traversal",
+    "return_code": "200",
+    "log_record": "144.169.55.103 - - [14/Feb/2011:22:59:15  0000] \"GET /main4.php?email=<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM \"file:///dev/random\">]><foo>&xee;</foo> HTTP/1.1\" 200 4151 \"http://www.jones.info/test/\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1\"\n"
+  },
+  {
+    "attack_prediction": 3,
+    "URL": "GET /register.php?file11=../config.js HTTP/1.1",
+    "description": "Detects config & database files",
+    "return_code": "200",
+    "log_record": "225.157.126.178 - - [14/Feb/2011:22:59:15  0000] \"GET /register.php?file11=../config.js HTTP/1.1\" 200 1223 \"http://www.jones.info/mainpage/\" \"Mozilla/5.0 (Windows NT 10.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/40.0.2214.93 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 3,
+    "URL": "GET /main4.php?email=<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM \"file:///dev/random\">]><foo>&xee;</foo> HTTP/1.1",
+    "description": "Detects specific directory and path traversal",
+    "return_code": "200",
+    "log_record": "144.169.55.103 - - [14/Feb/2011:22:59:15  0000] \"GET /main4.php?email=<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?><!DOCTYPE foo [<!ELEMENT foo ANY><!ENTITY xxe SYSTEM \"file:///dev/random\">]><foo>&xee;</foo> HTTP/1.1\" 200 4151 \"http://www.jones.info/test/\" \"Mozilla/5.0 (Windows NT 6.1; WOW64; rv:40.0) Gecko/20100101 Firefox/40.1\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "GET /imp/js/folderprefs.js?v=29c8308baa6508a21e1be9e3345d1287 HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:18  0000] \"GET /imp/js/folderprefs.js?v=29c8308baa6508a21e1be9e3345d1287 HTTP/1.1\" 200 1185 \"http://mail.spiral.com/services/prefs.php?app=imp&group=delmove\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 2,
+    "URL": "GET /main.php?id='';!--\"<XSS>=&{()} HTTP/1.1",
+    "description": "Detects obfuscated script tags and XML wrapped HTML",
+    "return_code": "200",
+    "log_record": "244.96.75.42 - - [14/Feb/2011:22:59:15  0000] \"GET /main.php?id='';!--\"<XSS>=&{()} HTTP/1.1\" 200 3303 \"http://www.jones.info/index.html/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "POST /services/prefs.php HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:31  0000] \"POST /services/prefs.php HTTP/1.1\" 200 5785 \"http://mail.spiral.com/services/prefs.php?app=imp&group=delmove\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 0,
+    "URL": "POST /services/prefs.php HTTP/1.1",
+    "description": "there is no attack to be described",
+    "return_code": "200",
+    "log_record": "192.168.10.81 - - [29/Feb/2020:00:00:37  0000] \"POST /services/prefs.php HTTP/1.1\" 200 5785 \"http://mail.spiral.com/services/prefs.php\" \"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:73.0) Gecko/20100101 Firefox/73.0\"\n"
+  },
+  {
+    "attack_prediction": 3,
+    "URL": "GET /main6.php?file13=../../../../../../../../../../../../../../../../../etc/passwd%00 HTTP/1.1",
+    "description": "Detects etc/passwd inclusion attempts",
+    "return_code": "200",
+    "log_record": "88.27.219.176 - - [14/Feb/2011:22:59:15  0000] \"GET /main6.php?file13=../../../../../../../../../../../../../../../../../etc/passwd%00 HTTP/1.1\" 200 2609 \"http://www.jones.info/main/\" \"Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/27.0.1453.93 Safari/537.36\"\n"
+  },
+  {
+    "attack_prediction": 2,
+    "URL": "GET /main.php?id=<IMG LOWSRC=\\\"javascript:alert('XSS')\\\"> HTTP/1.1",
+    "description": "Detects obfuscated script tags and XML wrapped HTML",
+    "return_code": "200",
+    "log_record": "244.96.75.42 - - [14/Feb/2011:22:59:15  0000] \"GET /main.php?id=<IMG LOWSRC=\\\"javascript:alert('XSS')\\\"> HTTP/1.1\" 200 3303 \"http://www.jones.info/index.html/\" \"Mozilla/5.0 (Macintosh; Intel Mac OS X 10.8; rv:21.0) Gecko/20100101 Firefox/21.0\"\n"
+  }
+]
