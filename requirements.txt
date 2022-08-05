@@ -1,0 +1,6 @@
+numpy
+sklearn
+seaborn
+yellowbrick
+uvicorn
+fastapi
