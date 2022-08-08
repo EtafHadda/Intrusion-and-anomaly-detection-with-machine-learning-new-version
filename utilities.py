@@ -23,17 +23,32 @@ config.read('settings.conf')
 
 MODEL = config['MODEL']['model']
 FEATURES = config['FEATURES']['features'].split(',')
-REGEX = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (.+) "(.*?)" "(.*?)"'
 SPECIAL_CHARS = "[$&+,:;=?@#|'<>.^*()%!-]"
 
 def encode_single_log_line(log_line):
     log_line = log_line.replace(',','_')
-    log_line = re.match(REGEX,log_line).groups()
-    url = log_line[2]
-    return_code = log_line[3]
+    REGEX = '(\d+-\d+-\d+\w\d+:\d+:\d+.*\d+:\d+\s\w* \w+\:\s)([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (.+) "(.*?)" "(.*?)"'
+    #REGEX = '([(\d\.)]+) - - \[(.*?)\] "(.*?)" (\d+) (.+) "(.*?)" "(.*?)"'
+
+    log_line = re.match(REGEX, log_line).groups()
+    '''
+    print(log_line[0])
+    print(log_line[1])
+    print(log_line[2])
+    print(log_line[3])
+    print(log_line[4])
+    print(log_line[5])
+    print(log_line[6])
+    print(log_line[7])
+    '''
+
+
+
+    url = log_line[3]
+    return_code = log_line[4]
     param_number = len(url.split('&'))
     url_length = len(url)
-    size = str(log_line[4]).rstrip('\n')
+    size = str(log_line[5]).rstrip('\n')
     depth = sum(1 for c in url if c == '/')
     upper_cases = sum(1 for c in url if c.isupper())
     lower_cases = sum(1 for c in url if c.islower())
