@@ -33,5 +33,5 @@ To prepare the environment you need to configure two servers (rsyslog client & r
     $template RemoteLogs,"/var/log/%HOSTNAME%/%PROGRAMNAME%.log" #log file path will be sth like: /var/log/localhost/Http_access.log
     *.* ?RemoteLogs
     & ~
-- systemctl restart rsyslog
+- systemctl restart rsyslog # Then your rsyslog client logs will be centralized in the rsyslog server and you can apply tool commands on them.
 
