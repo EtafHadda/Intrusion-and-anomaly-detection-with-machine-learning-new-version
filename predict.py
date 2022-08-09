@@ -26,21 +26,23 @@ for log_line in log_file:
     desc='there is no attack to be described'
     log_line=unquote_plus(log_line)
     url,encoded,return_code = encode_single_log_line(log_line)
-    formatte_encoded = []
-    for feature in FEATURES:
-        formatte_encoded.append(encoded[feature])
-    model = pickle.load(open(model_file, 'rb'))
-    prediction = int(model.predict([formatte_encoded])[0])
 
-    print(prediction)
-    csv_file = open(r'regex_4_labels.csv', 'r')
-    csv_reader = csv.reader(csv_file, delimiter=',')
-    for row in csv_reader:
-        if re.search(row[2], url):
-            attack = row[0]
-            desc = row[1]
+    if encoded !=None:
+        formatte_encoded = []
+        for feature in FEATURES:
+            formatte_encoded.append(encoded[feature])
+        model = pickle.load(open(model_file, 'rb'))
+        prediction = int(model.predict([formatte_encoded])[0])
 
-    data_from_json.append({"attack_prediction": prediction, "URL": url,"description":desc,"return_code":return_code,"log_record":log_line})
+        print(prediction)
+        csv_file = open(r'regex_4_labels.csv', 'r')
+        csv_reader = csv.reader(csv_file, delimiter=',')
+        for row in csv_reader:
+            if re.search(row[2], url):
+                attack = row[0]
+                desc = row[1]
+
+        data_from_json.append({"attack_prediction": prediction, "URL": url,"description":desc,"return_code":return_code,"log_record":log_line})
 
 with open("prediction_output.json", "w") as write_file:
     json.dump(data_from_json, write_file, indent=2)
