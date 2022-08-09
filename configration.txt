@@ -1,0 +1,37 @@
+To prepare the environment you need to configure two servers (rsyslog client & rsyslog server)
+
+** First: install apache web server on both rsyslog client & rsyslog server.
+- yum update
+- yum install httpd -y
+- systemctl enable httpd --now
+- systemctl status httpd
+- yum install php
+- systemctl disable firewalld   (you have to add rules to allow just for specific services)
+- setenforce 0 (to disable selinux)
+
+
+** Second: install rsyslog utility on both rsyslog client & rsyslog server:
+- yum install rsyslog -y
+- systemctl enable rsyslog --now
+- systemctl status rsyslog
+
+
+** Third: configure rsyslog utility on rsyslog client:
+-  vi /etc/rsyslog.conf
+    input(type="imfile"
+          File="/var/log/httpd/access_log"
+          Tag="http_access"
+          Facility="local6")
+    local6.info        @rsyslog_server_ip:514
+- systemctl restart rsyslog
+
+
+** Fourth: configure rsyslog utility on rsyslog server:
+- vi /etc/rsyslog.conf
+    $ModLoad imudp # enable udp protocol (remove the comment):
+    $UDPServerRun 514
+    $template RemoteLogs,"/var/log/%HOSTNAME%/%PROGRAMNAME%.log" #log file path will be sth like: /var/log/localhost/Http_access.log
+    *.* ?RemoteLogs
+    & ~
+- systemctl restart rsyslog
+

@@ -3,6 +3,9 @@
 #### Paper title: Offline Log Analysis For Apache Web Servers Using Machine Learning
 #### Frontend Repository: https://github.com/eman97/attack-prediction.git
 
+
+
+
 ## About
 **Webhawk - the new  version:**  is a Machine Learning Web attacks detection tool. It uses apache web logs as training data and pre-process them before training the model. Preprocessing includes Feature Engineerung and Data Labeling wich is done automatically using regular expressions. In training phase, the tool chooses the training algorithm with the highest accuracy and produce its model. After that, testing is conducted py predicting many apache logs and writing them in a json file which will be the return value of the api when frontend application contacts with the tool. Web attacks included right now are:
 - SQL injection. 
