@@ -1,7 +1,7 @@
 
 # _**Webhawk - The New Version**_
 #### Paper title: Offline Log Analysis For Apache Web Servers Using Machine Learning
-#### Frontend Repository: https://github.com/eman97/attack-prediction.git
+#### Frontend Repository: https://github.com/eman97/Webhawk-v2-Dashboard-React
 
 
 
